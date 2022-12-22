@@ -1,5 +1,7 @@
 package homework2_2.transport;
 import java.time.LocalDate;
+import java.time.Period;
+import java.time.temporal.ChronoUnit;
 
 public class Car {
     protected final String brand = "Lada";
@@ -64,8 +66,6 @@ public class Car {
                 this.insuranceNumber = null;
             }
                    }
-
-
         public Integer getTermOfTheInsurance() {
             return termOfTheInsurance;
         }
@@ -86,52 +86,15 @@ public class Car {
                         " рублей, номер страховки " + insuranceNumber + ".";
             }
         }
-
-
     public Car(String brand, String model, Double engineVolume,
                String color, Integer year, String country, String transmission, Integer numberOfSeats,
                String bodyType, String registrationNumber) {
 
-        if (engineVolume <= 0 ) {
-            this.engineVolume = 1.5;
-        } else {
-            this.engineVolume = engineVolume;
-        }
-        if (color == null || color.isEmpty() || color.isBlank()) {
-            this.color = "white";
-        } else {
-            this.color = color;
-        }
-
-        if (transmission == null || transmission.isEmpty() || transmission.isBlank()) {
-            this.transmission = "default";
-        } else {
-            this.transmission = transmission;
-        }
-        if (registrationNumber == null || registrationNumber.isEmpty() || registrationNumber.isBlank()) {
-            this.registrationNumber = "default";
-        } else {
-            this.registrationNumber = registrationNumber;
-        }
+        setEngineVolume(engineVolume);
+        setColor(color);
+        setTransmission(transmission);
+        setRegistrationNumber(registrationNumber);
     }
-  /*  public Car(Integer airTemperature, Integer monthNumber, String tireType) {
-        this.airTemperature = airTemperature;
-        this.monthNumber = monthNumber;
-        this.tireType = tireType;
-        if (airTemperature <= 0 || monthNumber > 0 && monthNumber <= 3 || monthNumber >= 10 && monthNumber <= 12) {
-            System.out.println("Cменить шины на сезонные");
-        }
-    }
-
-    void doStuff (int t) {
-        System.out.println("Сегодня температура воздуха " + t + " градусов");
-    }
-    public static void seasoneTiresType() {
-
-        int airTemperature = int t;
-        if ()
-    }*/
-
     public String getTransmission() {
         return transmission;
     }
@@ -173,45 +136,78 @@ public class Car {
         return country;
     }
     public void setEngineVolume(Double engineVolume) {
-        this.engineVolume = engineVolume;
+        if (engineVolume <= 0) {
+            this.engineVolume = 1.5;
+        } else {
+            this.engineVolume = engineVolume;
+        }
     }
 
     public void setColor(String color) {
-        this.color = color;
+        if (color == null || color.isEmpty() || color.isBlank()) {
+            this.color = "white";
+        } else {
+            this.color = color;
+        }
     }
 
     public void setTransmission(String transmission) {
-        this.transmission = transmission;
+        if (transmission == null || transmission.isEmpty() || transmission.isBlank()) {
+            this.transmission = "default";
+        } else {
+            this.transmission = transmission;
+        }
     }
 
     public void setRegistrationNumber(String registrationNumber) {
-        this.registrationNumber = registrationNumber;
+        if (registrationNumber == null || registrationNumber.isEmpty() || registrationNumber.isBlank()) {
+            this.registrationNumber = "default";
+        } else {
+            this.registrationNumber = registrationNumber;
+        }
     }
-/*
-    public String getTireType() {
-        return tireType;
+public static void periodOfInsurance() {
+    LocalDate nowadays = LocalDate.of(2022, 12, 20);
+    LocalDate dateOfBuyingIns = LocalDate.of(2022, 4, 13);
+    Period daysOfInsurance1 = dateOfBuyingIns.until(nowadays);
+    Long daysOfInsurance2 = dateOfBuyingIns.until(nowadays, ChronoUnit.DAYS);
+    Long termOfTheInsurance = Long.valueOf(365);
+    Integer lessDays = (int) (termOfTheInsurance - daysOfInsurance2);
+    if (termOfTheInsurance > daysOfInsurance2) {
+        System.out.println("Осталось " + lessDays + " дней страховки.");
+    } else {
+        System.out.println("Страховка закончилась. Необходимо оформить новую!");
     }
+    System.out.println("Прошло " + daysOfInsurance1 + " или " + daysOfInsurance2 + " дней со дня оформления страховки.");
+}
+public static void seasoneTireTypes() {
 
-    public void setTireType(String tireType) {
-        this.tireType = tireType;
+    Integer monthNumber = 12;
+    if (monthNumber < 0) {
+        monthNumber = Math.abs(monthNumber);
     }
+    Integer localTemperature = 12;
+    String tireType = "summer";
+    boolean seasonWinter = true;
+    boolean seasonSummer = true;
 
-    public Integer getAirTemperature() {
-        return airTemperature;
+    if (localTemperature <= 5 & monthNumber <= 3 | localTemperature <= 5 & monthNumber >= 10 & monthNumber <= 12) {
+        seasonWinter = true;
+    } else {
+        seasonWinter = false;
     }
+    if (localTemperature > 5 & monthNumber > 3 & monthNumber < 10) {
+        seasonSummer = true;
+    } else {
+        seasonSummer = false;
+    }
+    if (tireType == "winter" & seasonWinter | tireType == "summer" & seasonSummer) {
+        System.out.println("Шины подобраны под сезон");
 
-    public void setAirTemperature(Integer airTemperature) {
-        this.airTemperature = airTemperature;
+    } else {
+        System.out.println("Необходимо сменить шины на сезонные");
     }
-
-    public Integer getMonthNumber() {
-        return monthNumber;
-    }
-
-    public void setMonthNumber(Integer monthNumber) {
-        this.monthNumber = monthNumber;
-    }
-*/
+}
     @Override
     public String toString() {
         return "Машина - " + this.brand +
