@@ -85,6 +85,20 @@ public class Car {
                         ", стоимость страховки составила " + costOfInsurance +
                         " рублей, номер страховки " + insuranceNumber + ".";
             }
+        public void periodOfInsurance() {
+            LocalDate nowadays = LocalDate.of(2022, 12, 20);
+            LocalDate dateOfBuyingIns = LocalDate.of(2022, 4, 13);
+            Period daysOfInsurance1 = dateOfBuyingIns.until(nowadays);
+            Long daysOfInsurance2 = dateOfBuyingIns.until(nowadays, ChronoUnit.DAYS);
+            Long termOfTheInsurance = Long.valueOf(365);
+            Integer lessDays = (int) (termOfTheInsurance - daysOfInsurance2);
+            if (termOfTheInsurance > daysOfInsurance2) {
+                System.out.println("Осталось " + lessDays + " дней страховки.");
+            } else {
+                System.out.println("Страховка закончилась. Необходимо оформить новую!");
+            }
+            System.out.println("Прошло " + daysOfInsurance1 + " или " + daysOfInsurance2 + " дней со дня оформления страховки.");
+        }
         }
     public Car(String brand, String model, Double engineVolume,
                String color, Integer year, String country, String transmission, Integer numberOfSeats,
@@ -166,48 +180,20 @@ public class Car {
             this.registrationNumber = registrationNumber;
         }
     }
-public static void periodOfInsurance() {
-    LocalDate nowadays = LocalDate.of(2022, 12, 20);
-    LocalDate dateOfBuyingIns = LocalDate.of(2022, 4, 13);
-    Period daysOfInsurance1 = dateOfBuyingIns.until(nowadays);
-    Long daysOfInsurance2 = dateOfBuyingIns.until(nowadays, ChronoUnit.DAYS);
-    Long termOfTheInsurance = Long.valueOf(365);
-    Integer lessDays = (int) (termOfTheInsurance - daysOfInsurance2);
-    if (termOfTheInsurance > daysOfInsurance2) {
-        System.out.println("Осталось " + lessDays + " дней страховки.");
-    } else {
-        System.out.println("Страховка закончилась. Необходимо оформить новую!");
-    }
-    System.out.println("Прошло " + daysOfInsurance1 + " или " + daysOfInsurance2 + " дней со дня оформления страховки.");
+
+public void seasoneTireTypes(Integer monthNumber, Integer localTemperature, String tireType) {
+//    Integer monthNumber = 5;
+//    Integer localTemperature = 10;
+//    String tireType = "summer";
+    boolean seasonWinter;
+    //    определяем принадлежность месяца к зимней резине
+    if (localTemperature <= 5 | monthNumber <= 3 | localTemperature <= 5 & monthNumber >= 10 & monthNumber <= 12) {
+        seasonWinter = true;} else {seasonWinter = false;}
+    if (seasonWinter == true & tireType != "winter" | seasonWinter == false & tireType == "winter") {
+        System.out.println("Необходимо подобрать шины под сезон");} else {System.out.println("Шины подобраны под сезон");}
+
 }
-public static void seasoneTireTypes() {
 
-    Integer monthNumber = 12;
-    if (monthNumber < 0) {
-        monthNumber = Math.abs(monthNumber);
-    }
-    Integer localTemperature = 12;
-    String tireType = "summer";
-    boolean seasonWinter = true;
-    boolean seasonSummer = true;
-
-    if (localTemperature <= 5 & monthNumber <= 3 | localTemperature <= 5 & monthNumber >= 10 & monthNumber <= 12) {
-        seasonWinter = true;
-    } else {
-        seasonWinter = false;
-    }
-    if (localTemperature > 5 & monthNumber > 3 & monthNumber < 10) {
-        seasonSummer = true;
-    } else {
-        seasonSummer = false;
-    }
-    if (tireType == "winter" & seasonWinter | tireType == "summer" & seasonSummer) {
-        System.out.println("Шины подобраны под сезон");
-
-    } else {
-        System.out.println("Необходимо сменить шины на сезонные");
-    }
-}
     @Override
     public String toString() {
         return "Машина - " + this.brand +
